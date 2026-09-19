@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Error - Book Exchange')}">
+</head>
+
+<body class="bg-cream text-ink min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<main class="flex-grow flex items-center justify-center px-6 py-16">
+
+    <div class="w-full max-w-lg">
+
+        <div class="bg-white border border-brown/20
+                        shadow-sm p-8 md:p-10 text-center">
+
+            <div class="text-5xl mb-5">
+                ⚠️
+            </div>
+
+            <p class="text-brown uppercase tracking-[0.2em]
+                          text-xs font-semibold mb-3">
+                Error
+            </p>
+
+            <h1 class="font-serif text-3xl font-bold text-forest mb-4">
+                Something went wrong
+            </h1>
+
+            <p th:if="${error}"
+               th:text="${error}"
+               class="text-gray-600 leading-relaxed mb-8">
+            </p>
+
+            <p th:unless="${error}"
+               class="text-gray-600 leading-relaxed mb-8">
+                An unexpected error occurred. Please try again.
+            </p>
+
+            <a th:href="@{/home}"
+               class="inline-block bg-forest text-white
+                          px-7 py-3 font-semibold
+                          border border-forest
+                          hover:bg-brown hover:border-brown
+                          transition">
+                Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Browse Books - Book Exchange')}">
+</head>
+
+<body class="bg-cream text-ink min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<main class="flex-grow">
+
+    <!-- Page Header -->
+    <section class="max-w-6xl mx-auto px-6 pt-12 pb-8">
+
+        <p class="text-brown uppercase tracking-[0.2em]
+                      text-sm font-semibold mb-3">
+            University Book Exchange
+        </p>
+
+        <h1 class="font-serif text-4xl md:text-5xl
+                       font-bold text-forest">
+            Available Books
+        </h1>
+
+        <p class="text-gray-600 mt-3 max-w-2xl">
+            Browse, search, and filter books available from other students.
+        </p>
+
+    </section>
+
+
+    <!-- Search & Filters -->
+    <section class="max-w-6xl mx-auto px-6 pb-10">
+
+        <div class="bg-white border border-brown/20
+                        shadow-sm p-6">
+
+            <h2 class="font-serif text-2xl font-bold
+                           text-forest mb-6">
+                Search & Filters
+            </h2>
+
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                <!-- Search by Title -->
+                <form action="/listings/search"
+                      method="get"
+                      class="lg:col-span-2">
+
+                    <label for="bookTitle"
+                           class="block text-sm font-semibold
+                                      text-forest mb-2">
+                        Search by Book Title
+                    </label>
+
+                    <div class="flex gap-2">
+
+                        <input id="bookTitle"
+                               type="text"
+                               name="bookTitle"
+                               placeholder="Enter book title"
+                               class="flex-1 border border-brown/30
+                                          bg-cream px-4 py-3
+                                          outline-none
+                                          focus:border-forest transition">
+
+                        <button type="submit"
+                                class="bg-forest text-white
+                                           px-5 py-3 font-semibold
+                                           border border-forest
+                                           hover:bg-brown
+                                           hover:border-brown transition">
+                            Search
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- Condition -->
+                <form action="/listings/filter/condition"
+                      method="get">
+
+                    <label for="condition"
+                           class="block text-sm font-semibold
+                                      text-forest mb-2">
+                        Condition
+                    </label>
+
+                    <div class="flex gap-2">
+
+                        <select id="condition"
+                                name="condition"
+                                class="flex-1 border border-brown/30
+                                           bg-cream px-4 py-3
+                                           outline-none
+                                           focus:border-forest">
+
+                            <option value="NEW">New</option>
+                            <option value="LIKE_NEW">Like New</option>
+                            <option value="USED">Used</option>
+                            <option value="DAMAGED">Damaged</option>
+
+                        </select>
+
+                        <button type="submit"
+                                class="bg-brown text-white
+                                           px-4 py-3 font-semibold
+                                           hover:bg-forest transition">
+                            Filter
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- Listing Type -->
+                <form action="/listings/filter/type"
+                      method="get">
+
+                    <label for="type"
+                           class="block text-sm font-semibold
+                                      text-forest mb-2">
+                        Listing Type
+                    </label>
+
+                    <div class="flex gap-2">
+
+                        <select id="type"
+                                name="type"
+                                class="flex-1 border border-brown/30
+                                           bg-cream px-4 py-3
+                                           outline-none
+                                           focus:border-forest">
+
+                            <option value="SELL">Sell</option>
+                            <option value="EXCHANGE">Exchange</option>
+
+                        </select>
+
+                        <button type="submit"
+                                class="bg-brown text-white
+                                           px-4 py-3 font-semibold
+                                           hover:bg-forest transition">
+                            Filter
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- Course Code -->
+                <form action="/listings/filter/code"
+                      method="get">
+
+                    <label for="courseCode"
+                           class="block text-sm font-semibold
+                                      text-forest mb-2">
+                        Course Code
+                    </label>
+
+                    <div class="flex gap-2">
+
+                        <input id="courseCode"
+                               type="number"
+                               name="courseCode"
+                               placeholder="Course code"
+                               class="flex-1 border border-brown/30
+                                          bg-cream px-4 py-3
+                                          outline-none
+                                          focus:border-forest">
+
+                        <button type="submit"
+                                class="bg-brown text-white
+                                           px-4 py-3 font-semibold
+                                           hover:bg-forest transition">
+                            Filter
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                <!-- Category -->
+                <form action="/listings/filter/category"
+                      method="get">
+
+                    <label for="category"
+                           class="block text-sm font-semibold
+                                      text-forest mb-2">
+                        Category
+                    </label>
+
+                    <div class="flex gap-2">
+
+                        <input id="category"
+                               type="text"
+                               name="category"
+                               placeholder="Enter category"
+                               class="flex-1 border border-brown/30
+                                          bg-cream px-4 py-3
+                                          outline-none
+                                          focus:border-forest">
+
+                        <button type="submit"
+                                class="bg-brown text-white
+                                           px-4 py-3 font-semibold
+                                           hover:bg-forest transition">
+                            Filter
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Listings -->
+    <section class="max-w-6xl mx-auto px-6 pb-16">
+
+        <div class="flex items-center justify-between mb-6">
+
+            <h2 class="font-serif text-3xl font-bold text-forest">
+                Books
+            </h2>
+
+            <a th:href="@{/listings}"
+               class="text-sm font-semibold text-brown
+                          hover:text-forest transition">
+                + List a Book
+            </a>
+
+        </div>
+
+
+        <!-- Empty State -->
+        <div th:if="${listings.isEmpty()}"
+             class="bg-white border border-brown/20
+                        p-10 text-center shadow-sm">
+
+            <div class="text-4xl mb-4">
+                📚
+            </div>
+
+            <h3 class="font-serif text-2xl font-bold text-forest">
+                No books found
+            </h3>
+
+            <p class="text-gray-600 mt-2">
+                Try changing your search or filter.
+            </p>
+
+        </div>
+
+
+        <!-- Book Grid -->
+        <div th:unless="${listings.isEmpty()}"
+             class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+
+
+            <div th:each="listing : ${listings}"
+                 class="bg-white border border-brown/20
+                            shadow-sm overflow-hidden">
+
+
+                <!-- Image -->
+                <div class="bg-gray-100 h-64 flex items-center
+                                justify-center">
+
+                    <img th:if="${listing.image != null}"
+                         th:src="@{/listings/{id}/image(id=${listing.listingId})}"
+                         alt="Book Image"
+                         class="w-full h-full object-cover">
+
+                    <div th:unless="${listing.image != null}"
+                         class="text-gray-400 text-center">
+
+                        <div class="text-5xl mb-2">
+                            📖
+                        </div>
+
+                        <p class="text-sm">
+                            No image available
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Book Information -->
+                <div class="p-6">
+
+                    <div class="flex items-start justify-between
+                                    gap-3 mb-3">
+
+                        <h2 class="font-serif text-2xl font-bold
+                                       text-forest"
+                            th:text="${listing.bookTitle}">
+                        </h2>
+
+                        <span th:text="${listing.listingType}"
+                              class="text-xs font-bold
+                                         border border-gold
+                                         text-brown px-2 py-1
+                                         whitespace-nowrap">
+                            </span>
+
+                    </div>
+
+
+                    <div class="space-y-2 text-sm text-gray-600">
+
+                        <p>
+                            <strong class="text-ink">Author:</strong>
+                            <span th:text="${listing.author}"></span>
+                        </p>
+
+                        <p>
+                            <strong class="text-ink">Edition:</strong>
+                            <span th:text="${listing.edition}"></span>
+                        </p>
+
+                        <p>
+                            <strong class="text-ink">Course Code:</strong>
+                            <span th:text="${listing.courseCode}"></span>
+                        </p>
+
+                        <p>
+                            <strong class="text-ink">Category:</strong>
+                            <span th:text="${listing.category}"></span>
+                        </p>
+
+                        <p>
+                            <strong class="text-ink">Condition:</strong>
+                            <span th:text="${listing.condition}"></span>
+                        </p>
+
+                        <p>
+                            <strong class="text-ink">Status:</strong>
+                            <span th:text="${listing.listingStatus}"></span>
+                        </p>
+
+                    </div>
+
+
+                    <!-- Price -->
+                    <div th:if="${listing.listingType.name() == 'SELL'}"
+                         class="border-t border-brown/20 mt-5 pt-4">
+
+                        <p class="text-2xl font-bold text-forest">
+
+                            <span th:text="${listing.price}"></span>
+
+                            <span class="text-sm font-normal text-gray-500">
+                                    JD
+                                </span>
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- Actions -->
+                    <div class="border-t border-brown/20
+                                    mt-5 pt-5 space-y-3">
+
+
+                        <!-- SELL: Reserve -->
+                        <div th:if="${listing.listingStatus.name() == 'AVAILABLE'
+                                     and listing.listingType.name() == 'SELL'}">
+
+                            <form th:action="@{/listings/{id}/reserve(id=${listing.listingId})}"
+                                  method="post">
+
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+
+                                <button type="submit"
+                                        data-confirm="Are you sure you want to reserve this book?"
+                                        class="w-full bg-forest text-white
+                                                   py-3 font-semibold
+                                                   border border-forest
+                                                   hover:bg-brown
+                                                   hover:border-brown
+                                                   transition">
+                                    Reserve Book
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <!-- EXCHANGE -->
+                        <div th:if="${listing.listingStatus.name() == 'AVAILABLE'
+                                     and listing.listingType.name() == 'EXCHANGE'}">
+
+                            <a th:href="@{/proposals/create(requestedListingId=${listing.listingId})}"
+                               class="block w-full text-center
+                                          bg-forest text-white
+                                          py-3 font-semibold
+                                          border border-forest
+                                          hover:bg-brown
+                                          hover:border-brown
+                                          transition">
+                                Make Exchange Proposal
+                            </a>
+
+                        </div>
+
+
+                        <!-- RESERVED -->
+                        <div th:if="${listing.listingStatus.name() == 'RESERVED'}"
+                             class="space-y-2">
+
+                            <!-- Cancel -->
+                            <form th:action="@{/listings/{id}/cancel(id=${listing.listingId})}"
+                                  method="post">
+
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+
+                                <button type="submit"
+                                        data-confirm="Are you sure you want to cancel this reservation?"
+                                        class="w-full border border-brown
+                                                   text-brown py-3
+                                                   font-semibold
+                                                   hover:bg-brown
+                                                   hover:text-white transition">
+                                    Cancel Reservation
+                                </button>
+
+                            </form>
+
+
+                            <!-- Complete Sale -->
+                            <form th:action="@{/listings/{id}/complete(id=${listing.listingId})}"
+                                  method="post">
+
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+
+                                <button type="submit"
+                                        data-confirm="Are you sure you want to mark this sale as complete?"
+                                        class="w-full bg-forest
+                                                   text-white py-3
+                                                   font-semibold
+                                                   hover:bg-brown
+                                                   transition">
+                                    Complete Sale
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <!-- Message Owner -->
+                        <a th:href="@{/message(listingId=${listing.listingId})}"
+                           class="block text-center text-sm
+                                      font-semibold text-brown
+                                      hover:text-forest transition">
+                            Message Owner
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

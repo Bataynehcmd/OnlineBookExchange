@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Book Exchange')}">
+</head>
+
+<body class="bg-cream text-ink min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<!-- Hero -->
+<main class="flex-grow">
+
+    <section class="max-w-6xl mx-auto px-6 pt-20 pb-16">
+
+        <div class="max-w-3xl">
+
+            <p class="text-brown uppercase tracking-[0.25em]
+                          text-sm font-semibold mb-4">
+                University Book Exchange
+            </p>
+
+            <h1 class="font-serif text-5xl md:text-6xl
+                           font-bold text-forest leading-tight mb-6">
+                Find the books you need.
+                <br>
+                Share the ones you don't.
+            </h1>
+
+            <p class="text-lg text-gray-700 leading-relaxed
+                          max-w-2xl mb-8">
+                A simple place for students to buy, sell, and exchange
+                university books with one another.
+            </p>
+
+            <div class="flex gap-4">
+
+                <a th:href="@{/listings/all}"
+                   class="bg-forest text-white px-7 py-3
+                              font-semibold border border-forest
+                              hover:bg-brown hover:border-brown
+                              transition">
+                    Browse Books
+                </a>
+
+                <a th:href="@{/listings}"
+                   class="bg-white text-forest px-7 py-3
+                              font-semibold border border-forest
+                              hover:bg-forest hover:text-white
+                              transition">
+                    List a Book
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Divider -->
+    <div class="max-w-6xl mx-auto px-6">
+
+        <div class="border-t border-brown/30"></div>
+
+    </div>
+
+
+    <!-- Features -->
+    <section class="max-w-6xl mx-auto px-6 py-16">
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <!-- Find Books -->
+            <div class="bg-white border border-brown/20
+                            p-8 shadow-sm">
+
+                <div class="text-3xl text-gold mb-5">
+                    📚
+                </div>
+
+                <h2 class="font-serif text-2xl font-bold
+                               text-forest mb-3">
+                    Find Books
+                </h2>
+
+                <p class="text-gray-600 leading-relaxed">
+                    Search through available university books
+                    and find what you need for your courses.
+                </p>
+
+            </div>
+
+
+            <!-- Sell Books -->
+            <div class="bg-white border border-brown/20
+                            p-8 shadow-sm">
+
+                <div class="text-3xl text-gold mb-5">
+                    🏷️
+                </div>
+
+                <h2 class="font-serif text-2xl font-bold
+                               text-forest mb-3">
+                    Sell Books
+                </h2>
+
+                <p class="text-gray-600 leading-relaxed">
+                    Have books you no longer need?
+                    Create a listing and offer them to other students.
+                </p>
+
+            </div>
+
+
+            <!-- Exchange -->
+            <div class="bg-white border border-brown/20
+                            p-8 shadow-sm">
+
+                <div class="text-3xl text-gold mb-5">
+                    🔄
+                </div>
+
+                <h2 class="font-serif text-2xl font-bold
+                               text-forest mb-3">
+                    Exchange
+                </h2>
+
+                <p class="text-gray-600 leading-relaxed">
+                    Exchange your books with other students
+                    and get the material you need.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Exchange Proposals - Book Exchange')}">
+</head>
+
+<body class="bg-cream text-ink min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<main class="flex-grow">
+
+    <!-- Header -->
+    <section class="max-w-6xl mx-auto px-6 pt-12 pb-8">
+
+        <p class="text-brown uppercase tracking-[0.2em]
+                      text-sm font-semibold mb-3">
+            Book Exchange
+        </p>
+
+        <h1 class="font-serif text-4xl md:text-5xl
+                       font-bold text-forest">
+            Exchange Proposals
+        </h1>
+
+        <p class="text-gray-600 mt-3">
+            Review and manage exchange proposals for your book.
+        </p>
+
+    </section>
+
+
+    <!-- Proposals -->
+    <section class="max-w-6xl mx-auto px-6 pb-16">
+
+        <!-- Number of proposals -->
+        <div class="mb-6 text-sm text-gray-600">
+
+            Number of proposals:
+            <span th:text="${proposals.size()}"
+                  class="font-bold text-forest">
+                </span>
+
+        </div>
+
+
+        <!-- Empty State -->
+        <div th:if="${proposals.isEmpty()}"
+             class="bg-white border border-brown/20
+                        shadow-sm p-10 text-center">
+
+            <div class="text-5xl mb-4">
+                🔄
+            </div>
+
+            <h2 class="font-serif text-2xl font-bold text-forest">
+                No exchange proposals
+            </h2>
+
+            <p class="text-gray-600 mt-2">
+                There are currently no proposals for this listing.
+            </p>
+
+        </div>
+
+
+        <!-- Proposal Cards -->
+        <div th:unless="${proposals.isEmpty()}"
+             class="space-y-6">
+
+            <div th:each="proposal : ${proposals}"
+                 class="bg-white border border-brown/20
+                            shadow-sm p-6 md:p-8">
+
+
+                <!-- Proposal Header -->
+                <div class="flex flex-col md:flex-row
+                                md:items-center md:justify-between
+                                gap-3 mb-6">
+
+                    <div>
+
+                        <p class="text-sm text-gray-500">
+                            Proposed by
+                        </p>
+
+                        <h2 class="font-serif text-2xl
+                                       font-bold text-forest"
+                            th:text="${proposal.proposer.username}">
+                        </h2>
+
+                    </div>
+
+
+                    <!-- Status -->
+                    <span th:text="${proposal.proposal}"
+                          class="inline-block border border-gold
+                                     text-brown px-4 py-2
+                                     text-sm font-bold">
+                        </span>
+
+                </div>
+
+
+                <!-- Offered Book -->
+                <div class="bg-cream border border-brown/20
+                                p-5 mb-6">
+
+                    <p class="text-sm text-gray-500 mb-1">
+                        Offered Book
+                    </p>
+
+                    <h3 class="font-serif text-xl font-bold
+                                   text-forest"
+                        th:text="${proposal.offeredListing.bookTitle}">
+                    </h3>
+
+                </div>
+
+
+                <!-- Pending Actions -->
+                <div th:if="${proposal.proposal.name() == 'PENDING'}"
+                     class="border-t border-brown/20 pt-5">
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+
+                        <!-- Accept -->
+                        <form th:action="@{/proposals/{id}/accept(id=${proposal.proposalId})}"
+                              method="post"
+                              class="flex-1">
+
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}">
+
+                            <button type="submit"
+                                    data-proposal-confirm="Are you sure you want to accept this exchange proposal?"
+                                    data-proposal-action
+                                    class="w-full bg-forest text-white
+                                               py-3 font-semibold
+                                               border border-forest
+                                               hover:bg-brown
+                                               hover:border-brown transition">
+                                Accept
+                            </button>
+
+                        </form>
+
+
+                        <!-- Reject -->
+                        <form th:action="@{/proposals/{id}/reject(id=${proposal.proposalId})}"
+                              method="post"
+                              class="flex-1">
+
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}">
+
+                            <button type="submit"
+                                    data-proposal-confirm="Are you sure you want to reject this exchange proposal?"
+                                    data-proposal-action
+                                    class="w-full border border-red-700
+                                               text-red-700 py-3
+                                               font-semibold
+                                               hover:bg-red-700
+                                               hover:text-white transition">
+                                Reject
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Accepted Actions -->
+                <div th:if="${proposal.proposal.name() == 'ACCEPTED'}"
+                     class="border-t border-brown/20 pt-5">
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+
+                        <!-- Confirm -->
+                        <form th:action="@{/proposals/{id}/confirm(id=${proposal.proposalId})}"
+                              method="post"
+                              class="flex-1">
+
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}">
+
+                            <button type="submit"
+                                    data-proposal-confirm="Are you sure you want to confirm this exchange?"
+                                    data-proposal-action
+                                    class="w-full bg-forest text-white
+                                               py-3 font-semibold
+                                               border border-forest
+                                               hover:bg-brown
+                                               hover:border-brown transition">
+                                Confirm Exchange
+                            </button>
+
+                        </form>
+
+
+                        <!-- Cancel -->
+                        <form th:action="@{/proposals/{id}/cancel(id=${proposal.proposalId})}"
+                              method="post"
+                              class="flex-1">
+
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}">
+
+                            <button type="submit"
+                                    data-proposal-confirm="Are you sure you want to cancel this exchange?"
+                                    data-proposal-action
+                                    class="w-full border border-brown
+                                               text-brown py-3
+                                               font-semibold
+                                               hover:bg-brown
+                                               hover:text-white transition">
+                                Cancel Exchange
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<!-- Proposal JavaScript -->
+<script th:src="@{/js/proposals.js}"></script>
+
+</body>
+</html>

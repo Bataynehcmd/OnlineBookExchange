@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<nav th:fragment="navbar"
+     class="bg-forest text-white border-b-4 border-gold">
+
+    <div class="max-w-6xl mx-auto px-6 py-4
+                flex items-center justify-between">
+
+        <!-- Logo -->
+        <a th:href="@{/home}"
+           class="font-serif text-2xl font-bold tracking-wide
+                  hover:text-yellow-200 transition">
+            Book Exchange
+        </a>
+
+
+        <!-- Navigation -->
+        <div class="flex items-center gap-7 text-sm font-medium">
+
+            <a th:href="@{/home}"
+               class="hover:text-yellow-200 transition">
+                Home
+            </a>
+
+            <a th:href="@{/listings/all}"
+               class="hover:text-yellow-200 transition">
+                Browse Books
+            </a>
+
+            <a th:href="@{/listings/my-listings}"
+               class="hover:text-yellow-200 transition">
+                My Listings
+            </a>
+
+            <a th:href="@{/profile}"
+               class="hover:text-yellow-200 transition">
+                Profile
+            </a>
+
+
+            <!-- Logout -->
+            <form th:action="@{/logout}" method="post">
+
+                <button type="submit"
+                        class="border border-yellow-100/50
+                               px-4 py-2
+                               hover:bg-white
+                               hover:text-forest
+                               transition">
+                    Logout
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</nav>
+
+</html>

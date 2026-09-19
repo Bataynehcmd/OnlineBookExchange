@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('My Profile - Book Exchange')}">
+</head>
+
+<body class="bg-cream text-ink min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<main class="flex-grow">
+
+  <!-- Header -->
+  <section class="max-w-3xl mx-auto px-6 pt-12 pb-8">
+
+    <p class="text-brown uppercase tracking-[0.2em]
+                      text-sm font-semibold mb-3">
+      Account
+    </p>
+
+    <h1 class="font-serif text-4xl md:text-5xl
+                       font-bold text-forest">
+      My Profile
+    </h1>
+
+    <p class="text-gray-600 mt-3">
+      Manage your account information.
+    </p>
+
+  </section>
+
+
+  <!-- Profile -->
+  <section class="max-w-3xl mx-auto px-6 pb-16">
+
+    <div class="bg-white border border-brown/20
+                        shadow-sm p-8 md:p-10">
+
+      <!-- Username -->
+      <div class="bg-cream border border-brown/20
+                            px-5 py-4 mb-7">
+
+        <p class="text-xs uppercase tracking-wider
+                              text-gray-500 mb-1">
+          Username
+        </p>
+
+        <p class="font-serif text-xl font-bold text-forest"
+           th:text="${user.username}">
+        </p>
+
+        <p class="text-sm text-gray-500 mt-1">
+          Username cannot be changed.
+        </p>
+
+      </div>
+
+
+      <form th:action="@{/profile}"
+            method="post"
+            class="space-y-6">
+
+
+        <!-- Email -->
+        <div>
+
+          <label for="email"
+                 class="block text-sm font-semibold
+                                      text-forest mb-2">
+            Email
+          </label>
+
+          <input id="email"
+                 type="email"
+                 name="email"
+                 th:value="${user.email}"
+                 required
+                 class="w-full border border-brown/30
+                                      bg-cream px-4 py-3
+                                      outline-none
+                                      focus:border-forest transition">
+
+        </div>
+
+
+        <!-- Year -->
+        <div>
+
+          <label for="year"
+                 class="block text-sm font-semibold
+                                      text-forest mb-2">
+            Academic Year
+          </label>
+
+          <input id="year"
+                 type="number"
+                 name="year"
+                 th:value="${user.year}"
+                 required
+                 class="w-full border border-brown/30
+                                      bg-cream px-4 py-3
+                                      outline-none
+                                      focus:border-forest transition">
+
+        </div>
+
+
+        <!-- Submit -->
+        <div class="border-t border-brown/20 pt-6">
+
+          <button type="submit"
+                  class="w-full bg-forest text-white
+                                       py-3 font-semibold
+                                       border border-forest
+                                       hover:bg-brown
+                                       hover:border-brown transition">
+            Update Profile
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

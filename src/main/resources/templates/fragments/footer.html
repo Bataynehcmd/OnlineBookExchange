@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<footer th:fragment="footer"
+        class="bg-forest text-white border-t-4 border-gold mt-16">
+
+    <div class="max-w-6xl mx-auto px-6 py-10">
+
+        <div class="flex flex-col md:flex-row
+                    items-center justify-between gap-6">
+
+            <!-- Project Name -->
+            <div>
+                <h2 class="font-serif text-2xl font-bold">
+                    Book Exchange
+                </h2>
+
+                <p class="text-sm text-gray-300 mt-2">
+                    University Book Exchange Platform
+                </p>
+            </div>
+
+
+            <!-- Footer Links -->
+            <div class="flex items-center gap-6 text-sm">
+
+                <a th:href="@{/home}"
+                   class="text-gray-300 hover:text-white transition">
+                    Home
+                </a>
+
+                <a th:href="@{/listings/all}"
+                   class="text-gray-300 hover:text-white transition">
+                    Browse Books
+                </a>
+
+                <a th:href="@{/profile}"
+                   class="text-gray-300 hover:text-white transition">
+                    Profile
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Divider -->
+        <div class="border-t border-white/20 mt-8 pt-6">
+
+            <p class="text-center text-sm text-gray-400">
+                © 2026 Book Exchange. All rights reserved.
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+</html>

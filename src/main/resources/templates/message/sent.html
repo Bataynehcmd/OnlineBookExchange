@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Sent Messages - Book Exchange')}">
+</head>
+
+<body class="bg-cream text-ink min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<main class="flex-grow">
+
+  <!-- Header -->
+  <section class="max-w-4xl mx-auto px-6 pt-12 pb-8">
+
+    <p class="text-brown uppercase tracking-[0.2em]
+                      text-sm font-semibold mb-3">
+      Messages
+    </p>
+
+    <h1 class="font-serif text-4xl md:text-5xl
+                       font-bold text-forest">
+      Sent Messages
+    </h1>
+
+    <p class="text-gray-600 mt-3">
+      Messages you have sent to other students.
+    </p>
+
+  </section>
+
+
+  <!-- Messages -->
+  <section class="max-w-4xl mx-auto px-6 pb-16">
+
+    <!-- Empty State -->
+    <div th:if="${messages.isEmpty()}"
+         class="bg-white border border-brown/20
+                        shadow-sm p-10 text-center">
+
+      <div class="text-5xl mb-4">
+        ✉️
+      </div>
+
+      <h2 class="font-serif text-2xl font-bold text-forest">
+        No sent messages yet
+      </h2>
+
+      <p class="text-gray-600 mt-2">
+        Messages you send will appear here.
+      </p>
+
+    </div>
+
+
+    <!-- Message List -->
+    <div th:unless="${messages.isEmpty()}"
+         class="space-y-5">
+
+      <div th:each="message : ${messages}"
+           class="bg-white border border-brown/20
+                            shadow-sm p-6">
+
+
+        <!-- Receiver & Date -->
+        <div class="flex flex-col sm:flex-row
+                                sm:items-center
+                                sm:justify-between gap-2 mb-5">
+
+          <div>
+
+            <p class="text-xs uppercase
+                                      tracking-wider
+                                      text-gray-500 mb-1">
+              To
+            </p>
+
+            <p class="font-serif text-xl font-bold
+                                      text-forest"
+               th:text="${message.receiver.username}">
+            </p>
+
+          </div>
+
+
+          <p class="text-sm text-gray-500"
+             th:text="${message.dateTime}">
+          </p>
+
+        </div>
+
+
+        <!-- Book -->
+        <div class="bg-cream border border-brown/20
+                                px-4 py-3 mb-5">
+
+          <p class="text-xs uppercase
+                                  tracking-wider
+                                  text-gray-500 mb-1">
+            Book
+          </p>
+
+          <p class="font-semibold text-forest"
+             th:text="${message.listing.bookTitle}">
+          </p>
+
+        </div>
+
+
+        <!-- Message -->
+        <div>
+
+          <p class="text-xs uppercase
+                                  tracking-wider
+                                  text-gray-500 mb-2">
+            Message
+          </p>
+
+          <p class="text-gray-700 leading-relaxed
+                                  whitespace-pre-line"
+             th:text="${message.messageText}">
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

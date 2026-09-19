@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Admin Panel - Book Exchange')}">
+</head>
+
+<body class="bg-cream text-ink min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<main class="flex-grow">
+
+    <!-- Header -->
+    <section class="max-w-6xl mx-auto px-6 pt-12 pb-8">
+
+        <p class="text-brown uppercase tracking-[0.2em]
+                      text-sm font-semibold mb-3">
+            Administration
+        </p>
+
+        <h1 class="font-serif text-4xl md:text-5xl
+                       font-bold text-forest">
+            Admin Panel
+        </h1>
+
+        <p class="text-gray-600 mt-3">
+            Manage users and monitor the book exchange platform.
+        </p>
+
+    </section>
+
+
+    <!-- Users -->
+    <section class="max-w-6xl mx-auto px-6 pb-16">
+
+        <div class="bg-white border border-brown/20
+                        shadow-sm overflow-hidden">
+
+            <div class="px-6 py-5 border-b border-brown/20">
+
+                <h2 class="font-serif text-2xl font-bold text-forest">
+                    All Users
+                </h2>
+
+            </div>
+
+
+            <!-- Desktop Table -->
+            <div class="overflow-x-auto">
+
+                <table class="w-full text-left">
+
+                    <thead class="bg-forest text-white">
+
+                    <tr>
+
+                        <th class="px-5 py-4 text-sm font-semibold">
+                            ID
+                        </th>
+
+                        <th class="px-5 py-4 text-sm font-semibold">
+                            Username
+                        </th>
+
+                        <th class="px-5 py-4 text-sm font-semibold">
+                            Email
+                        </th>
+
+                        <th class="px-5 py-4 text-sm font-semibold">
+                            Year
+                        </th>
+
+                        <th class="px-5 py-4 text-sm font-semibold">
+                            Roles
+                        </th>
+
+                        <th class="px-5 py-4 text-sm font-semibold">
+                            Status
+                        </th>
+
+                        <th class="px-5 py-4 text-sm font-semibold">
+                            Action
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="user : ${users}"
+                        class="border-b border-brown/10
+                                   hover:bg-cream/60 transition">
+
+                        <td class="px-5 py-4 text-sm"
+                            th:text="${user.id}">
+                        </td>
+
+                        <td class="px-5 py-4 font-semibold
+                                       text-forest"
+                            th:text="${user.username}">
+                        </td>
+
+                        <td class="px-5 py-4 text-sm text-gray-600"
+                            th:text="${user.email}">
+                        </td>
+
+                        <td class="px-5 py-4 text-sm"
+                            th:text="${user.year}">
+                        </td>
+
+                        <td class="px-5 py-4 text-sm"
+                            th:text="${user.roles}">
+                        </td>
+
+
+                        <!-- Status -->
+                        <td class="px-5 py-4">
+
+                                <span th:if="${user.blocked}"
+                                      class="inline-block border
+                                             border-red-700
+                                             text-red-700 px-3 py-1
+                                             text-xs font-bold">
+                                    Blocked
+                                </span>
+
+                            <span th:unless="${user.blocked}"
+                                  class="inline-block border
+                                             border-green-700
+                                             text-green-700 px-3 py-1
+                                             text-xs font-bold">
+                                    Active
+                                </span>
+
+                        </td>
+
+
+                        <!-- Block / Unblock -->
+                        <td class="px-5 py-4">
+
+                            <form th:action="@{/admin/users/{id}/toggle-block(id=${user.id})}"
+                                  method="post">
+
+                                <input type="hidden"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+
+                                <button type="submit"
+                                        th:text="${user.blocked ? 'Unblock' : 'Block'}"
+                                        th:attr="data-confirm=${user.blocked ? 'Are you sure you want to unblock this user?' : 'Are you sure you want to block this user?'}"
+                                        class="border border-forest
+                                                   text-forest px-4 py-2
+                                                   text-sm font-semibold
+                                                   hover:bg-forest
+                                                   hover:text-white
+                                                   transition">
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

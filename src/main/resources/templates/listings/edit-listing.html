@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head('Edit Listing - Book Exchange')}">
+</head>
+
+<body class="bg-cream text-ink min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+
+<main class="flex-grow">
+
+    <!-- Header -->
+    <section class="max-w-4xl mx-auto px-6 pt-12 pb-8">
+
+        <p class="text-brown uppercase tracking-[0.2em]
+                      text-sm font-semibold mb-3">
+            Your Books
+        </p>
+
+        <h1 class="font-serif text-4xl md:text-5xl
+                       font-bold text-forest">
+            Edit Listing
+        </h1>
+
+        <p class="text-gray-600 mt-3">
+            Update the information of your book listing.
+        </p>
+
+    </section>
+
+
+    <!-- Form -->
+    <section class="max-w-4xl mx-auto px-6 pb-16">
+
+        <div class="bg-white border border-brown/20
+                        shadow-sm p-8 md:p-10">
+
+            <form th:action="@{/listings/{id}/edit(id=${listing.listingId})}"
+                  method="post"
+                  class="space-y-7">
+
+
+                <!-- Book Information -->
+                <div>
+
+                    <h2 class="font-serif text-2xl font-bold
+                                   text-forest mb-5">
+                        Book Information
+                    </h2>
+
+                    <div class="grid md:grid-cols-2 gap-5">
+
+                        <!-- Book Title -->
+                        <div class="md:col-span-2">
+
+                            <label for="bookTitle"
+                                   class="block text-sm font-semibold
+                                              text-forest mb-2">
+                                Book Title
+                            </label>
+
+                            <input id="bookTitle"
+                                   type="text"
+                                   name="bookTitle"
+                                   th:value="${listing.bookTitle}"
+                                   required
+                                   class="w-full border border-brown/30
+                                              bg-cream px-4 py-3
+                                              outline-none
+                                              focus:border-forest transition">
+
+                        </div>
+
+
+                        <!-- Author -->
+                        <div>
+
+                            <label for="author"
+                                   class="block text-sm font-semibold
+                                              text-forest mb-2">
+                                Author
+                            </label>
+
+                            <input id="author"
+                                   type="text"
+                                   name="author"
+                                   th:value="${listing.author}"
+                                   required
+                                   class="w-full border border-brown/30
+                                              bg-cream px-4 py-3
+                                              outline-none
+                                              focus:border-forest transition">
+
+                        </div>
+
+
+                        <!-- Edition -->
+                        <div>
+
+                            <label for="edition"
+                                   class="block text-sm font-semibold
+                                              text-forest mb-2">
+                                Edition
+                            </label>
+
+                            <input id="edition"
+                                   type="number"
+                                   name="edition"
+                                   min="1"
+                                   th:value="${listing.edition}"
+                                   required
+                                   class="w-full border border-brown/30
+                                              bg-cream px-4 py-3
+                                              outline-none
+                                              focus:border-forest transition">
+
+                        </div>
+
+
+                        <!-- Course Code -->
+                        <div>
+
+                            <label for="courseCode"
+                                   class="block text-sm font-semibold
+                                              text-forest mb-2">
+                                Course Code
+                            </label>
+
+                            <input id="courseCode"
+                                   type="number"
+                                   name="courseCode"
+                                   min="1"
+                                   th:value="${listing.courseCode}"
+                                   required
+                                   class="w-full border border-brown/30
+                                              bg-cream px-4 py-3
+                                              outline-none
+                                              focus:border-forest transition">
+
+                        </div>
+
+
+                        <!-- Category -->
+                        <div>
+
+                            <label for="category"
+                                   class="block text-sm font-semibold
+                                              text-forest mb-2">
+                                Category
+                            </label>
+
+                            <input id="category"
+                                   type="text"
+                                   name="category"
+                                   th:value="${listing.category}"
+                                   required
+                                   class="w-full border border-brown/30
+                                              bg-cream px-4 py-3
+                                              outline-none
+                                              focus:border-forest transition">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="border-t border-brown/20"></div>
+
+
+                <!-- Condition -->
+                <div>
+
+                    <label for="condition"
+                           class="block text-sm font-semibold
+                                      text-forest mb-2">
+                        Book Condition
+                    </label>
+
+                    <select id="condition"
+                            name="condition"
+                            required
+                            class="w-full border border-brown/30
+                                       bg-cream px-4 py-3
+                                       outline-none
+                                       focus:border-forest transition">
+
+                        <option value="NEW"
+                                th:selected="${listing.condition == 'NEW'}">
+                            New
+                        </option>
+
+                        <option value="LIKE_NEW"
+                                th:selected="${listing.condition == 'LIKE_NEW'}">
+                            Like New
+                        </option>
+
+                        <option value="USED"
+                                th:selected="${listing.condition == 'USED'}">
+                            Used
+                        </option>
+
+                        <option value="DAMAGED"
+                                th:selected="${listing.condition == 'DAMAGED'}">
+                            Damaged
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Price -->
+                <div>
+
+                    <label for="price"
+                           class="block text-sm font-semibold
+                                      text-forest mb-2">
+                        Price
+                    </label>
+
+                    <div class="flex items-center">
+
+                        <input id="price"
+                               type="number"
+                               step="0.01"
+                               min="0"
+                               name="price"
+                               th:value="${listing.price}"
+                               class="w-full border border-brown/30
+                                          bg-cream px-4 py-3
+                                          outline-none
+                                          focus:border-forest transition">
+
+                        <span class="ml-3 text-gray-600">
+                                JD
+                            </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="border-t border-brown/20"></div>
+
+
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row gap-3">
+
+                    <button type="submit"
+                            class="flex-1 bg-forest text-white
+                                       py-3 font-semibold
+                                       border border-forest
+                                       hover:bg-brown
+                                       hover:border-brown transition">
+                        Save Changes
+                    </button>
+
+                    <a th:href="@{/listings/my-listings}"
+                       class="flex-1 text-center
+                                  border border-brown
+                                  text-brown py-3 font-semibold
+                                  hover:bg-brown
+                                  hover:text-white transition">
+                        Cancel
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
